@@ -1,0 +1,23 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "todo app",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trunghieupham2426/risingStarTest.git"
+  },
+  "author": "trunghieu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trunghieupham2426/risingStarTest/issues"
+  },
+  "homepage": "https://github.com/trunghieupham2426/risingStarTest#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "mysql2": "^2.3.3"
+  }
+}

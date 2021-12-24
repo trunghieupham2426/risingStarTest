@@ -5,7 +5,9 @@ USE todoApp;
 CREATE TABLE todo (
 	todo_id INT AUTO_INCREMENT PRIMARY KEY,
 	description VARCHAR(200) NOT NULL,
-	status BOOLEAN,
-	created_at TIMESTAMP DEFAULT NOW()
+	status BOOLEAN DEFAULT FALSE,
+	created_at TIMESTAMP DEFAULT NOW(),
+	changed_at TIMESTAMP DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP
 );
 
+INSERT INTO todo (description) VALUES('viec 1') , ('viec 2');
