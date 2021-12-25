@@ -10,4 +10,4 @@ CREATE TABLE todo (
 	changed_at TIMESTAMP DEFAULT NOW() ON UPDATE CURRENT_TIMESTAMP
 );
 
-INSERT INTO todo (description) VALUES('viec 1') , ('viec 2');
+-- INSERT INTO todo (description) VALUES('viec 1') , ('viec 2');
