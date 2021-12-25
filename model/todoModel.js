@@ -47,10 +47,21 @@ class Todo {
         return;
       }
       if (!data.affectedRows) {
+        // nếu ko query dc thì affectRows = 0
         result("invalid id", null);
       } else {
         result(null, null);
       }
+    });
+  };
+  static getAll = (field, sort, result) => {
+    const sql = `SELECT * FROM todo ORDER BY ${field} ${sort} `;
+    db.query(sql, (err, data) => {
+      if (err) {
+        result(err, null);
+        return;
+      }
+      result(null, data);
     });
   };
 }
