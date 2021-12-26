@@ -44,7 +44,11 @@ async function renderTodo() {
   if (data.length === 0) return;
   let output = "";
   data.forEach((el) => {
-    output += `<li>${el.description}<span data-id=${el.todo_id} class="close">\u00D7</span></li>`;
+    output += `<li class=${el.status ? "checked" : ""}>${
+      el.description
+    }<span data-id=${el.todo_id} data-status=${
+      el.status
+    } class="close">\u00D7</span></li>`;
   });
   todoList.innerHTML = output;
   deleteTodo(deleteBTN);
@@ -68,9 +72,24 @@ function deleteTodo(deleteButton) {
 
 function markDone() {
   this.classList.toggle("checked");
-  //console.log(this.children[0].getAttribute("data-id"));
-  const id = this.children[0].getAttribute("data-id");
+  const spanChild = this.children[0];
+  const id = spanChild.getAttribute("data-id");
+  let status = +spanChild.getAttribute("data-status");
+  const localStatus = JSON.parse(localStorage.getItem("status"));
+  if (localStatus && localStatus[id]) {
+    status = localStatus[id];
+  }
   axios
-    .patch(`http://127.0.0.1:3000/api/todo/${id}`, { status: true })
-    .then((res) => console.log(res));
+    .patch(`http://127.0.0.1:3000/api/todo/${id}`, { status: !status })
+    .then((res) => {
+      const check = localStorage.getItem("status");
+      if (!check) {
+        localStorage.setItem("status", JSON.stringify({ [id]: !status }));
+      } else {
+        localStorage.setItem(
+          "status",
+          JSON.stringify({ ...localStatus, [id]: !status })
+        );
+      }
+    });
 }
