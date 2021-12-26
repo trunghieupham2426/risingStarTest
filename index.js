@@ -15,8 +15,15 @@ async function createTodo() {
     return;
   }
   //API
-  const res = await axios.post(url, { description: inputValue });
-  const data = res.data.data;
+  try {
+    const res = await axios.post(url, { description: inputValue });
+    const data = res.data.data;
+  } catch (e) {
+    if (e) {
+      alert("this app will not work without server turning on");
+    }
+  }
+
   console.log(data);
   //   UI
   const li = document.createElement("li");
