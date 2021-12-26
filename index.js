@@ -68,4 +68,9 @@ function deleteTodo(deleteButton) {
 
 function markDone() {
   this.classList.toggle("checked");
+  //console.log(this.children[0].getAttribute("data-id"));
+  const id = this.children[0].getAttribute("data-id");
+  axios
+    .patch(`http://127.0.0.1:3000/api/todo/${id}`, { status: true })
+    .then((res) => console.log(res));
 }

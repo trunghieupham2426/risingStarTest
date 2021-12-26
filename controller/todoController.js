@@ -21,26 +21,22 @@ exports.createTodo = function (req, res) {
 
 exports.updateTodo = function (req, res) {
   const todoId = req.params.id;
-  const updatedTodo = new Todo(req.body);
-  const trimString = updatedTodo.description.trim();
-  if (trimString.length === 0) {
-    return sendResponseErr(500, "fail", "description cannot empty", res);
-  }
-  Todo.update(
-    { ...updatedTodo, description: trimString },
-    todoId,
-    (err, data) => {
-      if (err) {
-        return sendResponseErr(
-          500,
-          "fail",
-          "invalid id or description empty",
-          res
-        );
-      }
-      sendResponse(200, "success", data, res);
+  let updatedTodo = { ...req.body };
+  if (updatedTodo?.description) {
+    if (updatedTodo.description.trim().length === 0) {
+      return sendResponseErr(500, "fail", "description cannot empty", res);
     }
-  );
+    updatedTodo = {
+      ...updatedTodo,
+      description: updatedTodo.description.trim(),
+    };
+  }
+  Todo.update(updatedTodo, todoId, (err, data) => {
+    if (err) {
+      return sendResponseErr(500, "fail", "invalid id or field empty", res);
+    }
+    sendResponse(200, "success", data, res);
+  });
 };
 
 exports.deleteTodo = function (req, res) {

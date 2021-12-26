@@ -19,11 +19,13 @@ class Todo {
     );
   };
   static update = (updatedTodo, id, result) => {
+    // console.log(updatedTodo);
     db.query(
-      "UPDATE todo SET description = ? , status = ? WHERE todo_id = ?",
-      [updatedTodo.description, updatedTodo.status, id],
+      "UPDATE todo SET ? WHERE todo_id = ?",
+      [updatedTodo, id],
       (err, data) => {
         if (err) {
+          // console.log(err);
           result(err, null);
           return;
         }
