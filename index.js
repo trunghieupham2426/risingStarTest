@@ -18,29 +18,27 @@ async function createTodo() {
   try {
     const res = await axios.post(url, { description: inputValue });
     const data = res.data.data;
-  } catch (e) {
-    if (e) {
-      alert("this app will not work without server turning on");
-    }
-  }
 
-  console.log(data);
-  //   UI
-  const li = document.createElement("li");
-  li.appendChild(document.createTextNode(inputValue));
-  let span = document.createElement("SPAN");
-  let txt = document.createTextNode("\u00D7");
-  span.className = "close";
-  span.appendChild(txt);
-  const att = document.createAttribute("data-id");
-  att.value = data.id;
-  span.setAttributeNode(att);
-  li.appendChild(span);
-  todoList.appendChild(li);
-  todoInput.value = "";
-  deleteTodo(deleteBTN);
-  //   mark todo completed
-  li.addEventListener("click", markDone);
+    console.log(data);
+    //   UI
+    const li = document.createElement("li");
+    li.appendChild(document.createTextNode(inputValue));
+    let span = document.createElement("SPAN");
+    let txt = document.createTextNode("\u00D7");
+    span.className = "close";
+    span.appendChild(txt);
+    const att = document.createAttribute("data-id");
+    att.value = data.id;
+    span.setAttributeNode(att);
+    li.appendChild(span);
+    todoList.appendChild(li);
+    todoInput.value = "";
+    deleteTodo(deleteBTN);
+    //   mark todo completed
+    li.addEventListener("click", markDone);
+  } catch (e) {
+    alert("this app will not work without server turning on");
+  }
 }
 
 async function renderTodo() {
